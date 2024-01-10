@@ -1,0 +1,25 @@
+Installation of Git on Solaris 10
+------------------------------------------
+Step 1:
+Install the pkgutil utility, if you’ve not installed it. 
+#pkgadd -d http://get.opencsw.org/now
+
+Step 2: 
+Create a symlink of pkgutil to /usr/bin. 
+#ln -s /opt/csw/bin/pkgutil /usr/bin
+
+Step 3: 
+Update the catalog for pkgutil.
+#pkgutil -U
+
+Step 4: 
+Install git. 
+#pkgutil -i git
+
+Step 5:
+Create a symlink in /usr/bin so that we don’t need to provide the full path again and again.
+#ln -s /opt/csw/bin /git /usr /bin
+
+Step 6:
+Verify installation by checking the version of git.
+#git –version
