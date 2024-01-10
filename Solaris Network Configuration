@@ -1,7 +1,91 @@
 _______________________________________________________
 Introducion a Solaris Server to the Network 
 _______________________________________________________
-
-1. Hostname Change 
+**** 1.	Hostname Change ****
 Files involved:
-/etc/nodname
+/etc/nodename
+/etc/hostname.e1000g0 (e1000g0 = NIC label info)
+/etc/hosts
+a.	Display the current hostname of the system 
+#hostname
+or 
+#uname -n
+b.	Add the new hostname into the file /etc/nodename
+(The /etc directory stores system configuration files)
+#echo “TestServer” > /etc/nodename
+#cat /etc/nodename  (to verify)
+
+c.	Add the new hostname into the file /etc/hostname.e1000g0
+#echo TestServer > /etc/hostname.e1000g0
+#cat /etc/hostname.e1000g0 (to verify)
+
+d.	Add the new hostname into the file /etc/hosts
+/etc/hosts is used to store A records (/etc/host acted like dns and also was there before dns came in the late 80s)
+#cat /etc/hosts
+
+Static IP = x.x.x.203
+#vi /etc/hosts (and add your A record as follows
+10.0.0.203 TestServer
+
+e.	Replace the hostname cached in RAM with the new Hostname 
+#hostname TestServer
+Or 
+#reboot
+#hostname (to verify) 
+
+summary:
+When i change the hostname of a solaris server, I have to add the new hostname to to three (3) files  /etc/nodename, /etc/hostname.e1000g0, /etc/hosts then i will use the hostname command to replace the old hostname cached in the RAM with new hostname.
+
+
+**** 2.	Default Gateway configuration in Solaris ****
+File involved;
+/etc/defaultrouter
+#echo 10.0.0.1 > /etc/defaultrouter 
+#cat /etc/defaultrouter (to verify)
+Or 
+Display the default gateway of the system
+#cat /etc/defaultrouter 
+
+ 
+
+**** 3.	DNS Configuration in Solaris ****
+Files Involved;
+/etc/resolv.conf
+/etc/nsswitch.conf
+Display the current DNS settings of the server 
+#cat /etc/resolv.conf
+Replace the current DNS servers  to; 
+8.8.8.8
+8.8.4.4
+
+#echo “nameserver 8.8.8.8” > /etc/resolv.conf
+#echo “nameserver 8.8.4.4” >> /etc/resolv.conf
+#cat /etc/resolv.conf (verify)
+ 
+#more /etc/nsswitch.conf
+Lines Involved;
+hosts: files dns
+Ipnodes: files dns
+#vi /etc/nsswitch.conf (and clean up the DHCP entries)
+
+
+**** 4.	Assign A static IP address to your Server ****
+x.x.x.203
+A)	Display the current IP address of the system 
+#ifconfig -a
+
+B)	Switch the server IP configuration from DHCP to Static
+#rm /etc/dhcp.e1000g0
+The existence of this file in the system means it is configured for dynamic. The absence of the of the file means the system is configured for static
+#find /etc/ -name dhcp.e1000g0
+#rm /etc/dhcp.e1000g0
+#ls /etc/dhcp.e1000g0
+Assign the static IP to your system 
+#ifconfig e1000g0 inet 10.0.0.203/24 up
+#ifconfig -a    (to verify)
+ 
+
+Double check if IP address is consistent with /etc/hosts 
+#vi /etc/hosts (and make sure the IP of the server is consistent with that in the /etc/hosts
+#cat /etc/hosts
+#vi /etc/hosts and adjust your IP to match 
