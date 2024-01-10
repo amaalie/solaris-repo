@@ -1,0 +1,7 @@
+_______________________________________________________
+Introducion a Solaris Server to the Network 
+_______________________________________________________
+
+1. Hostname Change 
+Files involved:
+/etc/nodname
