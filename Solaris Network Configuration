@@ -12,11 +12,11 @@ or
 #uname -n
 b.	Add the new hostname into the file /etc/nodename
 (The /etc directory stores system configuration files)
-#echo “TestServer” > /etc/nodename
+#echo “testServer” > /etc/nodename
 #cat /etc/nodename  (to verify)
 
 c.	Add the new hostname into the file /etc/hostname.e1000g0
-#echo TestServer > /etc/hostname.e1000g0
+#echo testServer > /etc/hostname.e1000g0
 #cat /etc/hostname.e1000g0 (to verify)
 
 d.	Add the new hostname into the file /etc/hosts
@@ -28,7 +28,7 @@ Static IP = x.x.x.203
 10.0.0.203 TestServer
 
 e.	Replace the hostname cached in RAM with the new Hostname 
-#hostname TestServer
+#hostname testServer
 Or 
 #reboot
 #hostname (to verify) 
@@ -70,7 +70,7 @@ Ipnodes: files dns
 
 
 **** 4.	Assign A static IP address to your Server ****
-x.x.x.203
+x.x.x.242
 A)	Display the current IP address of the system 
 #ifconfig -a
 
@@ -81,7 +81,7 @@ The existence of this file in the system means it is configured for dynamic. The
 #rm /etc/dhcp.e1000g0
 #ls /etc/dhcp.e1000g0
 Assign the static IP to your system 
-#ifconfig e1000g0 inet 10.0.0.203/24 up
+#ifconfig e1000g0 inet 10.0.0.242/24 up
 #ifconfig -a    (to verify)
  
 
