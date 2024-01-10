@@ -23,9 +23,9 @@ d.	Add the new hostname into the file /etc/hosts
 /etc/hosts is used to store A records (/etc/host acted like dns and also was there before dns came in the late 80s)
 #cat /etc/hosts
 
-Static IP = x.x.x.203
+Static IP = x.x.x.242
 #vi /etc/hosts (and add your A record as follows
-10.0.0.203 TestServer
+10.0.0.242 testServer
 
 e.	Replace the hostname cached in RAM with the new Hostname 
 #hostname testServer
